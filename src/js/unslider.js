@@ -368,6 +368,38 @@
 			});
 		};
 
+		//  Destroy slider method.
+		self.destroy = function() {
+			self.stop();
+
+			self.$context.removeClass(self.prefix + self.options.animation)
+				.unwrap('<div class="' + self._ + '" />')
+				.removeAttr('style');
+
+			self.$container.removeClass('unslider-wrap')
+				.removeClass('unslider-carousel')
+				.removeAttr('style');
+
+			self.$slides.removeAttr('style')
+				.removeClass('unslider-active');
+
+			// Remove slide clones.
+			$.each(self.$slides, function(i, $slide) {
+				if ($($slide).hasClass('unslider-clone')) {
+					$slide.remove();
+				}
+			});
+
+			// Remove slider UI.
+			self.destroyArrows();
+			self.destroyNav();
+		};
+
+		//  Remove slider pagination.
+		self.destroyNav = function() {
+			self.$nav.remove();
+		}
+
 		//  Remove any trace of arrows
 		//  Loop our array of arrows and use jQuery to remove
 		//  It'll unbind any event handlers for us
